@@ -1,5 +1,6 @@
 from huggingface_hub import login
-login("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")
+import os
+login(os.getEnv("hf_token"))
 
 import torch
 from transformers import pipeline
