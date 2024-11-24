@@ -76,3 +76,160 @@ prompt_1_five_shot_ttc4900 = """
 
   
 """
+
+#test_data_trsav1
+
+prompt_1_zero_shot_trsav1 = """
+
+    Sen bir yapay zeka asistanısın.
+    Kullanıcı sana bir görev verecek. Amacın görevi olabildiğince sadık bir şekilde tamamlamak.
+    Görevi yerine getirirken adım adım düşün ama çıktı verme. sana sunulan seçeneklerden tek bir cevap seç.
+    Tek bir kelimelik cevap hakkın var. Sadece cevabı yazdır.
+
+    Şimdi sınıflandırma yapan bir program olduğunu düşün ve sana verilen metnin anlamsal yani semantik olarak olumlu, olumsuz veya nötr olduğunu bul, bu konuyu formata uygun bir şekilde döndür.
+    İşte aşağıda sana bir örnek. Çıktı tek kelime olmalı ve şunlardan biri olmalı: positive, negative, neutral
+
+    {
+        "metin":"	Gerçekten burdaki gözüktüğü gibi değil o kadar küçükkü yani anlatamam sizee burdakinin sadece kapağının boyutu kadar diyebilirim iyice araştırarak alın bence."
+        "anlam":"negative"
+    }
+
+
+"""
+
+prompt_1_three_shot_trsav1 = """
+
+    Sen bir yapay zeka asistanısın.
+    Kullanıcı sana bir görev verecek. Amacın görevi olabildiğince sadık bir şekilde tamamlamak.
+    Görevi yerine getirirken adım adım düşün ama çıktı verme. sana sunulan seçeneklerden tek bir cevap seç.
+    Tek bir kelimelik cevap hakkın var. Sadece cevabı yazdır.
+
+    Şimdi sınıflandırma yapan bir program olduğunu düşün ve sana verilen metnin anlamsal yani semantik olarak olumlu, olumsuz veya nötr olduğunu bul, bu konuyu formata uygun bir şekilde döndür.
+    İşte aşağıda sana bir örnek. Çıktı tek kelime olmalı ve şunlardan biri olmalı: positive, negative, neutral
+
+    {
+        "metin":"	Gerçekten burdaki gözüktüğü gibi değil o kadar küçükkü yani anlatamam sizee burdakinin sadece kapağının boyutu kadar diyebilirim iyice araştırarak alın bence."
+        "anlam":"negative"
+    },
+    {
+      "metin":"hafif hindistan cevizine benzeyen kokusu var, çok hoş. terlemeyi önlemeyip kokuyu önlüyor.Çok hızlı elime ulaştı. kargola'ma gayet iyiydi. tek sorun sürünce kurumasını beklemek. içeriği temiz olduğu için beklemeye değer"
+      "anlam":"positive"
+    },
+    {
+      "metin":"beklediğimden küçük geldi ve resimdeki gibi kaliteli durmuyor. ancak işlevi güzel, fırça kulları yumuşak yüz çizmiyor"
+      "anlam":"neutral"
+    }
+
+"""
+
+prompt_1_five_shot_trsav1 = """
+
+    Sen bir yapay zeka asistanısın.
+    Kullanıcı sana bir görev verecek. Amacın görevi olabildiğince sadık bir şekilde tamamlamak.
+    Görevi yerine getirirken adım adım düşün ama çıktı verme. sana sunulan seçeneklerden tek bir cevap seç.
+    Tek bir kelimelik cevap hakkın var. Sadece cevabı yazdır.
+
+    Şimdi sınıflandırma yapan bir program olduğunu düşün ve sana verilen metnin anlamsal yani semantik olarak olumlu, olumsuz veya nötr olduğunu bul, bu konuyu formata uygun bir şekilde döndür.
+    İşte aşağıda sana bir örnek. Çıktı tek kelime olmalı ve şunlardan biri olmalı: positive, negative, neutral
+
+    {
+      "metin":"	Gerçekten burdaki gözüktüğü gibi değil o kadar küçükkü yani anlatamam sizee burdakinin sadece kapağının boyutu kadar diyebilirim iyice araştırarak alın bence."
+      "anlam":"negative"
+    },
+    {
+      "metin":"hafif hindistan cevizine benzeyen kokusu var, çok hoş. terlemeyi önlemeyip kokuyu önlüyor.Çok hızlı elime ulaştı. kargola'ma gayet iyiydi. tek sorun sürünce kurumasını beklemek. içeriği temiz olduğu için beklemeye değer"
+      "anlam":"positive"
+    },
+    {
+      "metin":"beklediğimden küçük geldi ve resimdeki gibi kaliteli durmuyor. ancak işlevi güzel, fırça kulları yumuşak yüz çizmiyor"
+      "anlam":"neutral"
+    },
+    {
+      "metin":"Tırnak yüzeyini pürüzsüzleştiriyor parlatıyor muhteşemmiş ilk defa deneyim dedim ama şaşırttı. Her bayanın evinde bir köşe de olmalı tam bir tırnak mucizesi Dokusu görüntüsü aynı klasik vazelin. Farkı yok. Tek farkı içeriği. Vitamin dolu bir bakım kremi alın"
+      "anlam":"positive"
+    },
+    {
+      "metin":"Fiyat uygun diğer gliss saç kremi çeşitlerine göre daha az beğendim. Onlara göre daha akışkan. Bidahine sarı veya rose rengini tercih ederim kesinlikle bundan daha iyiler"
+      "anlam":"neutral"
+    }
+
+
+"""
+
+
+prompt_2_zero_shot_trsav1 = """
+  Sen bir yapay zeka asistanısın ve verilen görevleri tam doğrulukla yerine getirmek için eğitildin.
+  Amacın, kullanıcının sana verdiği görevi olabildiğince doğru ve eksiksiz bir şekilde yerine getirmek.
+
+  Talimatlar:
+  Görevi yerine getirirken adım adım düşün, ancak ara adımları yazdırma.
+  Sana sunulan seçeneklerden yalnızca birini seç.
+  Çıktın yalnızca bir kelimeden oluşmalı.
+  Görev:
+  Verilen metni anlamsal olarak olumlu, olumsuz veya nötr olarak sınıflandır. Çıktın kesinlikle şu üç kelimeden biri olmalı:
+  positive, negative, neutral
+
+"""
+prompt_2_three_shot_trsav1 = """
+  Sen bir yapay zeka asistanısın ve verilen görevleri tam doğrulukla yerine getirmek için eğitildin.
+  Amacın, kullanıcının sana verdiği görevi olabildiğince doğru ve eksiksiz bir şekilde yerine getirmek.
+
+  Talimatlar:
+  Görevi yerine getirirken adım adım düşün, ancak ara adımları yazdırma.
+  Sana sunulan seçeneklerden yalnızca birini seç.
+  Çıktın yalnızca bir kelimeden oluşmalı.
+  Görev:
+  Verilen metni anlamsal olarak olumlu, olumsuz veya nötr olarak sınıflandır. Çıktın kesinlikle şu üç kelimeden biri olmalı:
+  positive, negative, neutral
+
+  Örnekler:
+    {
+        "metin":"	Gerçekten burdaki gözüktüğü gibi değil o kadar küçükkü yani anlatamam sizee burdakinin sadece kapağının boyutu kadar diyebilirim iyice araştırarak alın bence."
+        "anlam":"negative"
+    },
+    {
+      "metin":"hafif hindistan cevizine benzeyen kokusu var, çok hoş. terlemeyi önlemeyip kokuyu önlüyor.Çok hızlı elime ulaştı. kargola'ma gayet iyiydi. tek sorun sürünce kurumasını beklemek. içeriği temiz olduğu için beklemeye değer"
+      "anlam":"positive"
+    },
+    {
+      "metin":"beklediğimden küçük geldi ve resimdeki gibi kaliteli durmuyor. ancak işlevi güzel, fırça kulları yumuşak yüz çizmiyor"
+      "anlam":"neutral"
+    }
+"""
+
+prompt_2_five_shot_trsav1 = """
+
+    Sen bir yapay zeka asistanısın ve verilen görevleri tam doğrulukla yerine getirmek için eğitildin.
+    Amacın, kullanıcının sana verdiği görevi olabildiğince doğru ve eksiksiz bir şekilde yerine getirmek.
+
+    Talimatlar:
+    Görevi yerine getirirken adım adım düşün, ancak ara adımları yazdırma.
+    Sana sunulan seçeneklerden yalnızca birini seç.
+    Çıktın yalnızca bir kelimeden oluşmalı.
+    Görev:
+    Verilen metni anlamsal olarak olumlu, olumsuz veya nötr olarak sınıflandır. Çıktın kesinlikle şu üç kelimeden biri olmalı:
+    positive, negative, neutral
+
+    Örnekler:
+    {
+      "metin":"	Gerçekten burdaki gözüktüğü gibi değil o kadar küçükkü yani anlatamam sizee burdakinin sadece kapağının boyutu kadar diyebilirim iyice araştırarak alın bence."
+      "anlam":"negative"
+    },
+    {
+      "metin":"hafif hindistan cevizine benzeyen kokusu var, çok hoş. terlemeyi önlemeyip kokuyu önlüyor.Çok hızlı elime ulaştı. kargola'ma gayet iyiydi. tek sorun sürünce kurumasını beklemek. içeriği temiz olduğu için beklemeye değer"
+      "anlam":"positive"
+    },
+    {
+      "metin":"beklediğimden küçük geldi ve resimdeki gibi kaliteli durmuyor. ancak işlevi güzel, fırça kulları yumuşak yüz çizmiyor"
+      "anlam":"neutral"
+    },
+    {
+      "metin":"Tırnak yüzeyini pürüzsüzleştiriyor parlatıyor muhteşemmiş ilk defa deneyim dedim ama şaşırttı. Her bayanın evinde bir köşe de olmalı tam bir tırnak mucizesi Dokusu görüntüsü aynı klasik vazelin. Farkı yok. Tek farkı içeriği. Vitamin dolu bir bakım kremi alın"
+      "anlam":"positive"
+    },
+    {
+      "metin":"Fiyat uygun diğer gliss saç kremi çeşitlerine göre daha az beğendim. Onlara göre daha akışkan. Bidahine sarı veya rose rengini tercih ederim kesinlikle bundan daha iyiler"
+      "anlam":"neutral"
+    }
+
+"""
