@@ -95,46 +95,83 @@ def kanarya():
 
     print(f"Predictions başarıyla {output_file} dosyasına yazıldı.")
 
-def turkcell():
-    tokenizer = AutoTokenizer.from_pretrained("umarigan/TURKCELL-LLM-7B-openhermes")
-    model = AutoModelForCausalLM.from_pretrained("umarigan/TURKCELL-LLM-7B-openhermes").bfloat16().to("cuda")
+def verius():
+    from unsloth import FastLanguageModel
     import torch
-    from transformers import AutoTokenizer, AutoModelForCausalLM
+    from torch.utils.data import DataLoader, Dataset
+    from unsloth import FastLanguageModel
 
-    system_prompt = prompt_1_zero_shot_ttc4900
+    max_seq_len = 512
+    model, tokenizer = FastLanguageModel.from_pretrained(
+        model_name="VeriUs/VeriUS-LLM-8b-v0.2",
+        max_seq_length=max_seq_len,
+        dtype=None,
+        device_map="auto")
+    FastLanguageModel.for_inference(model)  
+    model.to("cuda")
 
-    texts = test_data_ttc4900["text"].tolist()
+    prompt_template = """Aşağıda, görevini açıklayan bir talimat ve daha fazla bağlam sağlayan bir girdi verilmiştir. İsteği uygun bir şekilde tamamlayan bir yanıt yaz.
 
-    tokenizer.add_special_tokens({'pad_token': '<pad>'})
-    model = model.to("cuda")
-    batch_size = 8
-    num_batches = len(texts) // batch_size + int(len(texts) % batch_size > 0)
+    ### Talimat:
+    {}
 
-    predictions = []
+    ### Girdi:
+    {}
 
-    for i in range(num_batches):
-        batch_texts = texts[i * batch_size:(i + 1) * batch_size]
+    ### Yanıt:
+    """
 
-        batch_inputs = [f"{system_prompt}\nMetin: {text}\nKonu:" for text in batch_texts]
+    class PromptDataset(Dataset):
+        def __init__(self, instructions, inputs):
+            self.instructions = instructions
+            self.inputs = inputs
 
-        inputs = tokenizer(batch_inputs, return_tensors="pt", padding=True, truncation=True, max_length=512).to("cuda")
+            print("inputs length:", len(inputs))
+            print("instructions length:", len(instructions))
 
-        max_token_id = inputs['input_ids'].max().item()
-        vocab_size = model.config.vocab_size
-        print(f"Batch {i + 1}/{num_batches}: Maximum Token ID = {max_token_id}, Vocab Size = {vocab_size}")
+        def __len__(self):
+            return len(self.instructions)
 
-        if max_token_id >= vocab_size:
-            raise ValueError(f"Token ID {max_token_id} is out of range for model vocabulary size {vocab_size}.")
+        def __getitem__(self, idx):
+            return self.instructions[idx], self.inputs[idx]
 
-        with torch.no_grad():
-            outputs = model.generate(**inputs, max_new_tokens=50, num_beams=1)
-            decoded_outputs = [tokenizer.decode(output, skip_special_tokens=True) for output in outputs]
-            predictions.extend(decoded_outputs)
+    instructions = [prompt_1_five_shot_trsav1] * 1000
+    inputs = test_data_trsav1["review"].tolist()  
+    dataset = PromptDataset(instructions, inputs)
 
-        print(f"Batch {i + 1}/{num_batches} tamamlandı.")
+    batch_size = 8 
+    dataloader = DataLoader(dataset, batch_size=batch_size)
 
-    for idx, prediction in enumerate(predictions):
-        print(f"Metin {idx + 1}: {prediction}")
+    def generate_outputs_batch(dataloader, max_seq_len):
+        all_outputs = []
+
+        i=0
+        for batch in dataloader:
+
+            print(i, ". batch")
+            instructions, inputs = batch
+            prompts = [prompt_template.format(inst, inp) for inst, inp in zip(instructions, inputs)]
+            input_ids = tokenizer(prompts, return_tensors="pt", padding=True, truncation=True).to("cuda")
+
+            outputs = model.generate(**input_ids,max_new_tokens=20 , do_sample=True)
+            decoded_outputs = tokenizer.batch_decode(outputs, skip_special_tokens=True)
+
+            all_outputs.extend(decoded_outputs)
+            i += 1
+
+        return all_outputs
+
+    responses = generate_outputs_batch(dataloader, max_seq_len)
+    print(responses[:5]) 
+
+    import json
+
+    # JSON'a kaydet
+    output_file = "trsav1_5shotlama.json"
+    with open(output_file, "w", encoding="utf-8") as f:
+        json.dump(responses, f, ensure_ascii=False, indent=4) 
+
+    print(f"Çıktılar {output_file} dosyasına kaydedildi.")
 
 if __name__ == "__main__":
     #ytu_cosmos()
